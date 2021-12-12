@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://hugo.ckvb.run/sitemap.xml
