@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>sadas on villanel</title>
-    <link>https://hugo.ckvb.run/categories/sadas/</link>
+    <link>https://villanel.github.io/categories/sadas/</link>
     <description>Recent content in sadas on villanel</description>
     <image>
-      <url>https://hugo.ckvb.run/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://hugo.ckvb.run/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 12 Dec 2021 14:52:02 +0800</lastBuildDate><atom:link href="https://hugo.ckvb.run/categories/sadas/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Dec 2021 14:52:02 +0800</lastBuildDate><atom:link href="https://villanel.github.io/categories/sadas/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>flink</title>
-      <link>https://hugo.ckvb.run/post/fuck/</link>
+      <link>https://villanel.github.io/post/fuck/</link>
       <pubDate>Sun, 12 Dec 2021 14:52:02 +0800</pubDate>
       
-      <guid>https://hugo.ckvb.run/post/fuck/</guid>
+      <guid>https://villanel.github.io/post/fuck/</guid>
       <description>Flink in Native Kubernetes deploy flink in the Session Mode flink will deploy in the namespace default as default and use default as serviceaccount, if we want deploy in another namespace, we can set kubernetes.namespace. and we should modify the serviceacount.We either modify the permissions of default or create a new serviceAccount.
 create serviceaccount flink-service-account $ kubectl create serviceaccount flink-service-account $ kubectl create clusterrolebinding flink-role-binding-flink --clusterrole=edit --serviceaccount=default:flink-service-account delpoy the flink .</description>
     </item>

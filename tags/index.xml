@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on villanel</title>
-    <link>https://hugo.ckvb.run/tags/</link>
+    <link>https://villanel.github.io/tags/</link>
     <description>Recent content in Tags on villanel</description>
     <image>
-      <url>https://hugo.ckvb.run/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://hugo.ckvb.run/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 12 Dec 2021 14:52:02 +0800</lastBuildDate><atom:link href="https://hugo.ckvb.run/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Dec 2021 14:52:02 +0800</lastBuildDate><atom:link href="https://villanel.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>fllink</title>
-      <link>https://hugo.ckvb.run/tags/fllink/</link>
+      <link>https://villanel.github.io/tags/fllink/</link>
       <pubDate>Sun, 12 Dec 2021 14:52:02 +0800</pubDate>
       
-      <guid>https://hugo.ckvb.run/tags/fllink/</guid>
+      <guid>https://villanel.github.io/tags/fllink/</guid>
       <description></description>
     </item>
     
