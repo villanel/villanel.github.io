@@ -3,9 +3,10 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>K3s | villanel</title>
-<meta name=keywords content>
-<meta name=description content="hello world ">
+<title>K3s on the cloud | villanel</title>
+<meta name=keywords content="k3s,k8s">
+<meta name=description content="K3s with clilium and loki Install k3s and disable default CNI curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' sh - then you can add agent nodes also,you can find node-token at /var/lib/rancher/k3s/server/node-token,and install k3s agent nodes with follow commend.
+curl -sfL https://get.k3s.io | K3S_URL='https://${MASTER_IP}:6443' K3S_TOKEN=${NODE_TOKEN} sh - Install the Cilium with the Cilium CLI curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz{,.sha256sum} sha256sum --check cilium-linux-amd64.tar.gz.sha256sum sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin rm cilium-linux-amd64.tar.gz{,.sha256sum} Install Cilium by running:">
 <meta name=author content="villanel">
 <link rel=canonical href=https://villanel.github.io/post/k3s/>
 <meta name=google-site-verification content="XYZabc">
@@ -25,18 +26,20 @@
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="K3s">
-<meta property="og:description" content="hello world ">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="K3s on the cloud">
+<meta property="og:description" content="K3s with clilium and loki Install k3s and disable default CNI curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' sh - then you can add agent nodes also,you can find node-token at /var/lib/rancher/k3s/server/node-token,and install k3s agent nodes with follow commend.
+curl -sfL https://get.k3s.io | K3S_URL='https://${MASTER_IP}:6443' K3S_TOKEN=${NODE_TOKEN} sh - Install the Cilium with the Cilium CLI curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz{,.sha256sum} sha256sum --check cilium-linux-amd64.tar.gz.sha256sum sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin rm cilium-linux-amd64.tar.gz{,.sha256sum} Install Cilium by running:">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://villanel.github.io/post/k3s/"><meta property="og:image" content="https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="post">
 <meta property="article:published_time" content="2021-12-17T20:05:03+08:00">
 <meta property="article:modified_time" content="2021-12-17T20:05:03+08:00"><meta property="og:site_name" content="ExampleSite">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
-<meta name=twitter:title content="K3s">
-<meta name=twitter:description content="hello world ">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://villanel.github.io/post/"},{"@type":"ListItem","position":2,"name":"K3s","item":"https://villanel.github.io/post/k3s/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"K3s","name":"K3s","description":"hello world ","keywords":[],"articleBody":"hello world ","wordCount":"2","inLanguage":"en","datePublished":"2021-12-17T20:05:03+08:00","dateModified":"2021-12-17T20:05:03+08:00","author":{"@type":"Person","name":"villanel"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://villanel.github.io/post/k3s/"},"publisher":{"@type":"Organization","name":"villanel","logo":{"@type":"ImageObject","url":"https://villanel.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+<meta name=twitter:title content="K3s on the cloud">
+<meta name=twitter:description content="K3s with clilium and loki Install k3s and disable default CNI curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' sh - then you can add agent nodes also,you can find node-token at /var/lib/rancher/k3s/server/node-token,and install k3s agent nodes with follow commend.
+curl -sfL https://get.k3s.io | K3S_URL='https://${MASTER_IP}:6443' K3S_TOKEN=${NODE_TOKEN} sh - Install the Cilium with the Cilium CLI curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz{,.sha256sum} sha256sum --check cilium-linux-amd64.tar.gz.sha256sum sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin rm cilium-linux-amd64.tar.gz{,.sha256sum} Install Cilium by running:">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://villanel.github.io/post/"},{"@type":"ListItem","position":2,"name":"K3s on the cloud","item":"https://villanel.github.io/post/k3s/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"K3s on the cloud","name":"K3s on the cloud","description":"K3s with clilium and loki Install k3s and disable default CNI curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\u0026#39;--flannel-backend=none --disable-network-policy\u0026#39; sh - then you can add agent nodes also,you can find node-token at /var/lib/rancher/k3s/server/node-token,and install k3s agent nodes with follow commend.\ncurl -sfL https://get.k3s.io | K3S_URL=\u0026#39;https://${MASTER_IP}:6443\u0026#39; K3S_TOKEN=${NODE_TOKEN} sh - Install the Cilium with the Cilium CLI curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz{,.sha256sum} sha256sum --check cilium-linux-amd64.tar.gz.sha256sum sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin rm cilium-linux-amd64.tar.gz{,.sha256sum} Install Cilium by running:","keywords":["k3s","k8s"],"articleBody":"K3s with clilium and loki Install k3s and disable default CNI curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' sh - then you can add agent nodes also,you can find node-token at /var/lib/rancher/k3s/server/node-token,and install k3s agent nodes with follow commend.\ncurl -sfL https://get.k3s.io | K3S_URL='https://${MASTER_IP}:6443' K3S_TOKEN=${NODE_TOKEN} sh - Install the Cilium with the Cilium CLI curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz{,.sha256sum} sha256sum --check cilium-linux-amd64.tar.gz.sha256sum sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin rm cilium-linux-amd64.tar.gz{,.sha256sum} Install Cilium by running:\ncilium install # install hubble  cilium hubble enable --ui Running the following command to check out:\ncilium status cilium connectivity test Install loki with grafana and prometheus by helm helm upgrade --install loki --namespace= grafana/loki-stack --set grafana.enabled=true,prometheus.enabled=true,prometheus.alertmanager.persistentVolume.enabled=false,prometheus.server.persistentVolume.enabled=false Get the passwd of grafana\nkubectl get secret --namespace  loki-grafana -o jsonpath=\"{.data.admin-password}\" | base64 --decode ; echo ","wordCount":"126","inLanguage":"en","datePublished":"2021-12-17T20:05:03+08:00","dateModified":"2021-12-17T20:05:03+08:00","author":{"@type":"Person","name":"villanel"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://villanel.github.io/post/k3s/"},"publisher":{"@type":"Organization","name":"villanel","logo":{"@type":"ImageObject","url":"https://villanel.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -73,7 +76,7 @@
 <header class=post-header>
 <div class=breadcrumbs><a href=https://villanel.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://villanel.github.io/post/>Posts</a></div>
 <h1 class=post-title>
-K3s
+K3s on the cloud
 </h1>
 <div class=post-meta><span title="2021-12-17 20:05:03 +0800 CST">December 17, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;villanel
 </div>
@@ -84,15 +87,48 @@ K3s
 </summary>
 <div class=inner><ul>
 <li>
-<a href=#hello-world aria-label="hello world">hello world</a>
+<a href=#k3s-with-clilium-and-loki aria-label="K3s with clilium and loki">K3s with clilium and loki</a><ul>
+<li>
+<a href=#install-k3s-and-disable-default-cni aria-label="Install k3s and disable default CNI">Install k3s and disable default CNI</a></li>
+<li>
+<a href=#install-the-cilium-with-the-cilium-cli aria-label="Install the Cilium with the Cilium CLI">Install the Cilium with the Cilium CLI</a></li>
+<li>
+<a href=#install-loki-with-grafana-and-prometheus-by-helm aria-label="Install loki with grafana and prometheus by helm">Install loki with grafana and prometheus by helm</a>
+</li>
+</ul>
 </li>
 </ul>
 </div>
 </details>
 </div>
-<div class=post-content><h1 id=hello-world>hello world<a hidden class=anchor aria-hidden=true href=#hello-world>#</a></h1>
+<div class=post-content><h1 id=k3s-with-clilium-and-loki>K3s with clilium and loki<a hidden class=anchor aria-hidden=true href=#k3s-with-clilium-and-loki>#</a></h1>
+<h2 id=install-k3s-and-disable-default-cni>Install k3s and disable default CNI<a hidden class=anchor aria-hidden=true href=#install-k3s-and-disable-default-cni>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;--flannel-backend=none --disable-network-policy&#39;</span> sh -
+</code></pre></div><p>then you can add agent nodes also,you can find <code>node-token</code> at <code>/var/lib/rancher/k3s/server/node-token</code>,and install k3s agent nodes with follow commend.</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>curl -sfL https://get.k3s.io | K3S_URL<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;https://${MASTER_IP}:6443&#39;</span> K3S_TOKEN<span style=color:#f92672>=</span><span style=color:#e6db74>${</span>NODE_TOKEN<span style=color:#e6db74>}</span> sh -
+</code></pre></div><h2 id=install-the-cilium-with-the-cilium-cli>Install the Cilium with the Cilium CLI<a hidden class=anchor aria-hidden=true href=#install-the-cilium-with-the-cilium-cli>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz<span style=color:#f92672>{</span>,.sha256sum<span style=color:#f92672>}</span>
+sha256sum --check cilium-linux-amd64.tar.gz.sha256sum
+sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin
+rm cilium-linux-amd64.tar.gz<span style=color:#f92672>{</span>,.sha256sum<span style=color:#f92672>}</span>
+</code></pre></div><p>Install Cilium by running:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cilium install
+<span style=color:#75715e># install hubble </span>
+cilium hubble enable --ui
+</code></pre></div><p>Running the following command to check out:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cilium status 
+cilium connectivity test
+</code></pre></div><h2 id=install-loki-with-grafana-and-prometheus-by-helm>Install loki with grafana and prometheus by helm<a hidden class=anchor aria-hidden=true href=#install-loki-with-grafana-and-prometheus-by-helm>#</a></h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>helm upgrade --install loki --namespace<span style=color:#f92672>=</span>&lt;YOUR-NAMESPACE&gt; grafana/loki-stack  --set grafana.enabled<span style=color:#f92672>=</span>true,prometheus.enabled<span style=color:#f92672>=</span>true,prometheus.alertmanager.persistentVolume.enabled<span style=color:#f92672>=</span>false,prometheus.server.persistentVolume.enabled<span style=color:#f92672>=</span>false
+</code></pre></div><p>Get the passwd of <code>grafana</code></p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>kubectl get secret --namespace &lt;YOUR-NAMESPACE&gt; loki-grafana -o jsonpath<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{.data.admin-password}&#34;</span> | base64 --decode ; echo
+</code></pre></div>
 </div>
 <footer class=post-footer>
+<ul class=post-tags>
+<li><a href=https://villanel.github.io/tags/k3s/>k3s</a></li>
+<li><a href=https://villanel.github.io/tags/k8s/>k8s</a></li>
+</ul>
 <nav class=paginav>
 <a class=next href=https://villanel.github.io/post/fuck/>
 <span class=title>Next Page »</span>

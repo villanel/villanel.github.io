@@ -71,14 +71,15 @@
 </header>
 <article class=post-entry>
 <header class=entry-header>
-<h2>K3s
+<h2>K3s on the cloud
 </h2>
 </header>
 <section class=entry-content>
-<p>hello world </p>
+<p>K3s with clilium and loki Install k3s and disable default CNI curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy' sh - then you can add agent nodes also,you can find node-token at /var/lib/rancher/k3s/server/node-token,and install k3s agent nodes with follow commend.
+curl -sfL https://get.k3s.io | K3S_URL='https://${MASTER_IP}:6443' K3S_TOKEN=${NODE_TOKEN} sh - Install the Cilium with the Cilium CLI curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz{,.sha256sum} sha256sum --check cilium-linux-amd64.tar.gz.sha256sum sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin rm cilium-linux-amd64.tar.gz{,.sha256sum} Install Cilium by running:...</p>
 </section>
 <footer class=entry-footer><span title="2021-12-17 20:05:03 +0800 CST">December 17, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;villanel</footer>
-<a class=entry-link aria-label="post link to K3s" href=https://villanel.github.io/post/k3s/></a>
+<a class=entry-link aria-label="post link to K3s on the cloud" href=https://villanel.github.io/post/k3s/></a>
 </article>
 <article class=post-entry>
 <header class=entry-header>
