@@ -1,0 +1,512 @@
+<!doctype html><html lang=en dir=auto>
+<head><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Bestbefit | villanel</title>
+<meta name=keywords content>
+<meta name=description content="三、线性搜索 3.1什么是线性搜索？ 3.1.1线性搜索的概念 xk+1=xk+αkdkαk：步长因子 dk：搜索方向 则下一步的位置设为φ(α)=f(xk+αkdk)
+从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)<φ(0)，即f(xk+αkdk)<f(xk) 这就是线性搜索
+3.1.2精确线性搜索   目标函数沿搜索方向dk达到极小值，即使得 f(xk+αkdk)=min f(xk+αkdk)
+  或选取αk>0使得到达最低点（各方向导数为0）移动的步长最短的搜索方法 αk=min{α>0|▽f(xk+αkdk)Tdk=0} （一维到多维的扩充->在这点到某一方向的极小距离内的全微分，▽就是全微分）
+  对于αk=min{α>0|▽f(xk+αkdk)Tdk=0}（到达极小点步长最短） ∵xk+1=xk+αkdk∴原式为 ▽f(xk+1)T. dk且：gk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） 故：= gk+1T. dk线性搜索要求：下一梯度与当前下降方向垂直
+  3.1.3 线性搜索研究大纲 按步骤分为两部分：1. 确定包含最优解的初始区间 2. 通过分割和插值缩小区间。直到|b-a|<ε
+  确定初始区间：进退法/加步探索法 基本思想：试图确定函数呈现“高-低-高”的三点 具体步骤：
+ 给出初始点α0>0,初始步长h0>0 若φ(α0+h0)<=φ(α0) 则下一步从α1=α0+h0出发，且h1=2h0，直到上升为止 若φ(α0+h0)>=φ(α0),则沿反方向搜索，直到目标函数上升 也可以取导数，步长加倍来算    缩小区间的方法，根据是否利用导数信息分为两种
+ 无导数法：二分法、黄金分割法（0.618法）、斐波那契法（Fibonacci） 有导数法：插值法（一般比无导数法更有效） 不精确线性搜索方法    3.2.1 0.618法 在a-b的区间中选取两个对称点，比较其函数值，左侧
+选取根号五减一除以二的近似值：0.618
+3.2.2 Fibonacci法 3.2.3 二分法 四、无约束最优化方法 没有约束条件（初始区间），所以需要确定的是下降方向和下降步长。">
+<meta name=author content="villanel">
+<link rel=canonical href=https://villanel.github.io/post/bestbefit/>
+<meta name=google-site-verification content="XYZabc">
+<meta name=yandex-verification content="XYZabc">
+<meta name=msvalidate.01 content="XYZabc">
+<link crossorigin=anonymous href=/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css integrity="sha256-yIlj/i15RiAA/Q+xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as=style>
+<script defer crossorigin=anonymous src=/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5+kdJvBz5iKbt6B5PJI=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://villanel.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=16x16 href=https://villanel.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=icon type=image/png sizes=32x32 href=https://villanel.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=apple-touch-icon href=https://villanel.github.io/%3Clink%20/%20abs%20url%3E>
+<link rel=mask-icon href=https://villanel.github.io/%3Clink%20/%20abs%20url%3E>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<meta name=generator content="Hugo 0.88.1">
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Bestbefit">
+<meta property="og:description" content="三、线性搜索 3.1什么是线性搜索？ 3.1.1线性搜索的概念 xk+1=xk+αkdkαk：步长因子 dk：搜索方向 则下一步的位置设为φ(α)=f(xk+αkdk)
+从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)<φ(0)，即f(xk+αkdk)<f(xk) 这就是线性搜索
+3.1.2精确线性搜索   目标函数沿搜索方向dk达到极小值，即使得 f(xk+αkdk)=min f(xk+αkdk)
+  或选取αk>0使得到达最低点（各方向导数为0）移动的步长最短的搜索方法 αk=min{α>0|▽f(xk+αkdk)Tdk=0} （一维到多维的扩充->在这点到某一方向的极小距离内的全微分，▽就是全微分）
+  对于αk=min{α>0|▽f(xk+αkdk)Tdk=0}（到达极小点步长最短） ∵xk+1=xk+αkdk∴原式为 ▽f(xk+1)T. dk且：gk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） 故：= gk+1T. dk线性搜索要求：下一梯度与当前下降方向垂直
+  3.1.3 线性搜索研究大纲 按步骤分为两部分：1. 确定包含最优解的初始区间 2. 通过分割和插值缩小区间。直到|b-a|<ε
+  确定初始区间：进退法/加步探索法 基本思想：试图确定函数呈现“高-低-高”的三点 具体步骤：
+ 给出初始点α0>0,初始步长h0>0 若φ(α0+h0)<=φ(α0) 则下一步从α1=α0+h0出发，且h1=2h0，直到上升为止 若φ(α0+h0)>=φ(α0),则沿反方向搜索，直到目标函数上升 也可以取导数，步长加倍来算    缩小区间的方法，根据是否利用导数信息分为两种
+ 无导数法：二分法、黄金分割法（0.618法）、斐波那契法（Fibonacci） 有导数法：插值法（一般比无导数法更有效） 不精确线性搜索方法    3.2.1 0.618法 在a-b的区间中选取两个对称点，比较其函数值，左侧
+选取根号五减一除以二的近似值：0.618
+3.2.2 Fibonacci法 3.2.3 二分法 四、无约束最优化方法 没有约束条件（初始区间），所以需要确定的是下降方向和下降步长。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://villanel.github.io/post/bestbefit/"><meta property="og:image" content="https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="post">
+<meta property="article:published_time" content="2021-12-28T15:52:51+08:00">
+<meta property="article:modified_time" content="2021-12-28T15:52:51+08:00"><meta property="og:site_name" content="ExampleSite">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E">
+<meta name=twitter:title content="Bestbefit">
+<meta name=twitter:description content="三、线性搜索 3.1什么是线性搜索？ 3.1.1线性搜索的概念 xk+1=xk+αkdkαk：步长因子 dk：搜索方向 则下一步的位置设为φ(α)=f(xk+αkdk)
+从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)<φ(0)，即f(xk+αkdk)<f(xk) 这就是线性搜索
+3.1.2精确线性搜索   目标函数沿搜索方向dk达到极小值，即使得 f(xk+αkdk)=min f(xk+αkdk)
+  或选取αk>0使得到达最低点（各方向导数为0）移动的步长最短的搜索方法 αk=min{α>0|▽f(xk+αkdk)Tdk=0} （一维到多维的扩充->在这点到某一方向的极小距离内的全微分，▽就是全微分）
+  对于αk=min{α>0|▽f(xk+αkdk)Tdk=0}（到达极小点步长最短） ∵xk+1=xk+αkdk∴原式为 ▽f(xk+1)T. dk且：gk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） 故：= gk+1T. dk线性搜索要求：下一梯度与当前下降方向垂直
+  3.1.3 线性搜索研究大纲 按步骤分为两部分：1. 确定包含最优解的初始区间 2. 通过分割和插值缩小区间。直到|b-a|<ε
+  确定初始区间：进退法/加步探索法 基本思想：试图确定函数呈现“高-低-高”的三点 具体步骤：
+ 给出初始点α0>0,初始步长h0>0 若φ(α0+h0)<=φ(α0) 则下一步从α1=α0+h0出发，且h1=2h0，直到上升为止 若φ(α0+h0)>=φ(α0),则沿反方向搜索，直到目标函数上升 也可以取导数，步长加倍来算    缩小区间的方法，根据是否利用导数信息分为两种
+ 无导数法：二分法、黄金分割法（0.618法）、斐波那契法（Fibonacci） 有导数法：插值法（一般比无导数法更有效） 不精确线性搜索方法    3.2.1 0.618法 在a-b的区间中选取两个对称点，比较其函数值，左侧
+选取根号五减一除以二的近似值：0.618
+3.2.2 Fibonacci法 3.2.3 二分法 四、无约束最优化方法 没有约束条件（初始区间），所以需要确定的是下降方向和下降步长。">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://villanel.github.io/post/"},{"@type":"ListItem","position":2,"name":"Bestbefit","item":"https://villanel.github.io/post/bestbefit/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Bestbefit","name":"Bestbefit","description":"三、线性搜索 3.1什么是线性搜索？ 3.1.1线性搜索的概念 xk+1=xk+αkdkαk：步长因子 dk：搜索方向 则下一步的位置设为φ(α)=f(xk+αkdk)\n从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)\u0026lt;φ(0)，即f(xk+αkdk)\u0026lt;f(xk) 这就是线性搜索\n3.1.2精确线性搜索   目标函数沿搜索方向dk达到极小值，即使得 f(xk+αkdk)=min f(xk+αkdk)\n  或选取αk\u0026gt;0使得到达最低点（各方向导数为0）移动的步长最短的搜索方法 αk=min{α\u0026gt;0|▽f(xk+αkdk)Tdk=0} （一维到多维的扩充-\u0026gt;在这点到某一方向的极小距离内的全微分，▽就是全微分）\n  对于αk=min{α\u0026gt;0|▽f(xk+αkdk)Tdk=0}（到达极小点步长最短） ∵xk+1=xk+αkdk∴原式为 ▽f(xk+1)T. dk且：gk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） 故：= gk+1T. dk线性搜索要求：下一梯度与当前下降方向垂直\n  3.1.3 线性搜索研究大纲 按步骤分为两部分：1. 确定包含最优解的初始区间 2. 通过分割和插值缩小区间。直到|b-a|\u0026lt;ε\n  确定初始区间：进退法/加步探索法 基本思想：试图确定函数呈现“高-低-高”的三点 具体步骤：\n 给出初始点α0\u0026gt;0,初始步长h0\u0026gt;0 若φ(α0+h0)\u0026lt;=φ(α0) 则下一步从α1=α0+h0出发，且h1=2h0，直到上升为止 若φ(α0+h0)\u0026gt;=φ(α0),则沿反方向搜索，直到目标函数上升 也可以取导数，步长加倍来算    缩小区间的方法，根据是否利用导数信息分为两种\n 无导数法：二分法、黄金分割法（0.618法）、斐波那契法（Fibonacci） 有导数法：插值法（一般比无导数法更有效） 不精确线性搜索方法    3.2.1 0.618法 在a-b的区间中选取两个对称点，比较其函数值，左侧\n选取根号五减一除以二的近似值：0.618\n3.2.2 Fibonacci法 3.2.3 二分法 四、无约束最优化方法 没有约束条件（初始区间），所以需要确定的是下降方向和下降步长。","keywords":[],"articleBody":"三、线性搜索 3.1什么是线性搜索？ 3.1.1线性搜索的概念 xk+1=xk+αkdkαk：步长因子 dk：搜索方向 则下一步的位置设为φ(α)=f(xk+αkdk)\n从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)k+αkdk)k) 这就是线性搜索\n3.1.2精确线性搜索   目标函数沿搜索方向dk达到极小值，即使得 f(xk+αkdk)=min f(xk+αkdk)\n  或选取αk0使得到达最低点（各方向导数为0）移动的步长最短的搜索方法 αk=min{α0|▽f(xk+αkdk)Tdk=0} （一维到多维的扩充-在这点到某一方向的极小距离内的全微分，▽就是全微分）\n  对于αk=min{α0|▽f(xk+αkdk)Tdk=0}（到达极小点步长最短） ∵xk+1=xk+αkdk∴原式为 ▽f(xk+1)T. dk且：gk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） 故：= gk+1T. dk线性搜索要求：下一梯度与当前下降方向垂直\n  3.1.3 线性搜索研究大纲 按步骤分为两部分：1. 确定包含最优解的初始区间 2. 通过分割和插值缩小区间。直到|b-a| 确定初始区间：进退法/加步探索法 基本思想：试图确定函数呈现“高-低-高”的三点 具体步骤：\n 给出初始点α00,初始步长h00 若φ(α0+h0)0) 则下一步从α1=α0+h0出发，且h1=2h0，直到上升为止 若φ(α0+h0)=φ(α0),则沿反方向搜索，直到目标函数上升 也可以取导数，步长加倍来算    缩小区间的方法，根据是否利用导数信息分为两种\n 无导数法：二分法、黄金分割法（0.618法）、斐波那契法（Fibonacci） 有导数法：插值法（一般比无导数法更有效） 不精确线性搜索方法    3.2.1 0.618法 在a-b的区间中选取两个对称点，比较其函数值，左侧\n选取根号五减一除以二的近似值：0.618\n3.2.2 Fibonacci法 3.2.3 二分法 四、无约束最优化方法 没有约束条件（初始区间），所以需要确定的是下降方向和下降步长。\n最速下降法——最基本的方法\n牛顿法——最主要的方法\n共轭梯度法——解大型优化问题的首选\n拟牛顿法，尤其是BFGS——是目前最成功的方法\n4.1最速下降/梯度法 梯度：就是表示某一函数在该点处的方向导数沿着该方向取得最大值，即函数在当前位置的导数。其实质是迭代点的一次Taylor展开。（在迭代点处用一阶Taylor逼近目标函数，那这个Taylor的最速下降方向不就是原函数的下降方向吗？）\n∇=df(θ)dθ有正有负\n下降方向：负梯度方向 推导过程：\ngk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） f(x)在xk处的Taylor展开 f(x)=f(xk) + g k T(x-xk) + o(||x-xk||) 令：x=xk+αdk（α：步长是常数，dk：下降方向——构造线性搜索条件） ∴f(xk+αdk) = f(xk)+ g k T(αdk) + o(||αdk||) 即：φ(α)=φ(0) + g k T(αdk)\n可以看出（步长大于0）当g k Tdkk为下降方向，即：|g k T|.|dk|cosθα取定后显然夹角约接近于180°下降的越快，即dk= -gk\n将dk= -gk代回，得到： xk+1=xk-αgk（下一个位置 =上一个位置 + 步长x下降方向）\n移动步长：线性搜索确定 求正定二次函数的步长：\nf(x)=1/2 x TQ x +b Tx + c 取x=xt，▽f(xt)=gt=Qxt+b dt=-gt=-Qxt-b αt使得f(xk+αkdk)=min f(xk+αkdk) f(xt+1)=f(xt+ αtdt) =f(xt- gtαt)=argmin(1/2 gtT Q gtαt2- gtT gtαt+f(xt)) 运用-b/2a = αt= **gtT gt/gtT Q gt** ∴迭代公式为：**xt+1=xt-(gtT gt/gtT Q gt)**gt具体计算时 可以先设置下降方向为负梯度方向，代入f(xt+1)的式子中，得到关于αt的函数，令该函数为0，得到最优步长。 例题： 性质   优点：计算工作量小，存储量小，对初始点无要求\n  缺点：局部最速，整体求解缓慢（等值线为扁长椭球时开始较快，后来出现锯齿现象） 对于αk=min{α0|▽f(xk+αkdk)Tdk=0}（到达极小点步长最短） ∵xk+1=xk+αkdk∴原式左侧为 ▽f(xk+1)T. dk且：gk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） 故 gk+1T. dk= 0 线性搜索要求：下一梯度与当前下降方向垂直 且下降方向是负梯度方向(最速下降法要求的dk= -gk+1T) ∴ gk+1T. gk=dk+1T. dk= 0 (相邻梯度方向垂直、相邻下降方向垂直) 所以后来会出现锯齿现象。\n  4.2 牛顿法 https://zhuanlan.zhihu.com/p/293951317\n4.2.1 牛顿法基操 基本思想：在迭代点处对目标函数进行二次Taylor后，用二阶Taylor极小点去逼近目标极小点（最速下降法用一阶Taylor不行，那我二阶的试试？）\n推导过程 在xk附近展开（要求二次连续可微） f(xk+s) = f(xk)+ ▽f(xk) Ts + 1/2 sT▽2f(xk)s + o(||αdk||) 对s求导令其为0得：▽f(xk) + ▽2f(xk)s = 0 （要求Hesse（▽2f(xk)）正定） ∴ s = (▽2f(xk))-1. -▽f(xk) xk+1=xk+s=xk+(▽2f(xk))-1. -▽f(xk) =xk -（f(xk)一阶梯度/f(xk)二阶梯度）\n与最速下降法对比 不需要求方向，步长，直接s一步到位，因为二阶中有 sT▽2f(xk)s，对s求导后还有一个s，可以直接表示出s。而一阶的最速下降法，因为对s求导后，是常数了，所以不可以这么做。性质  对于正定二次函数f(x)=1/2 x TAx+b T x+c，牛顿法可以一步到位 一般非二次函数，不能保证迭代得到最优解 若初始点充分靠近极小点，牛顿法收敛的速度一般是快的，且具有二阶收敛速度 这个方法要求迭代点处二次连续可微+Hesse可逆 而且需要计算Hesse的逆矩阵，存储和计算都很麻烦。  4.2.2带步长因子的牛顿法/阻尼牛顿法 初始点远离最优解时，Hesse 不一定正定，无法保证收敛性，所以在前面加入αk步长因子，通过线性搜索得到步长因子。\nxk+1= xk+ αk(▽2f(xk))-1. -▽f(xk) αk=0, 使得xk+ αk(▽2f(xk))-1. -▽f(xk)最小 同最速下降法一样，令其为0，解得αk带步长因子的牛顿法是总体收敛的\n4.3 共轭梯度 FR共轭梯度法实际上是利用梯度和上一次的搜索方向来构造本次搜索方向：\ndk=-gk+βk-1dk-1 即：用上一次的搜索方向修正最速下降法的负梯度方向，不仅避免了锯齿现象，与牛顿法相比也节约了计算量。运用共轭，线性无关的同时，也适应大条件数。\n共轭梯度法克服了最速下降法收敛慢，只需要利用一阶导数信息，避免了牛顿法存储和计算hesse矩阵的空间 对大型线性或非线性方程组都非常有效\n共轭 首先，什么是共轭\n设 d1,d2… dm是Rn中任意一组非零向量，若 diTG di= 0 ( i ≠ j ) 则称d1,d2… dm是 G-共轭的。显然 d1,d2… dm线性无关，若G = I， 则是正交关系。\n推导 matlab 代码实现：\n4.4 拟牛顿 牛顿法的关键就是利用了Hesse的曲率信息，但是Hesse的计算和存储都很困难，那可否用梯度和目标函数这些信息来构造曲率近似呢？\n实际上就是用Bk代替牛顿法中的Hesse矩阵，Hk替牛顿法中的Hesse逆矩阵\n    牛顿法 拟牛顿法     迭代公式 xk+1= xk - αk(▽2f(xk))-1▽f(xk)) xk+1= xk- αkBk-1. ▽f(xk)   dk搜索方向 - (▽2f(xk))-1▽f(xk)) - Bk-1. ▽f(xk)    所以就是搜索方向用 - Bk-1. ▽f(xk) 迭代， 初始时Bk为单位矩阵，搜索方向为最速方向\n性质  仅需一阶导数 Bk正定 即可使该方法有下降性质 搜索方向互相共轭  Hk更新 xk+1= xk- αkBk-1. gksk= xk+1- xk，yk= gk+1- gk那么如何更新Hesse逆的近似——Hk呢？我们提出了两种修正方法。\nDFP校正 BFGS校正 两次运用秩一校正得到关于Bk的迭代公式\n五、小二乘 六、二次规划 非线性约束优化问题\n研究带有二次目标函数和线性约束的最优化问题\n二次规划(QP)问题下，若Hesse为正定，则为凸规划问题\n前m个为不等式约束，后l个是等式约束\n6.2 等式约束二次规划问题 min 1/2 xTQ x + cT x s. t. Ax=b 假设\n Q为半正定，则为凸问题 A mXn, r(A)=m, A行满秩  直接消去法 联想：\nAx=b线性方程组求解\n对A分块=（B，N）\n对应x分块 $$ x=\\left( \\begin{matrix} x_B \\\nx_N \\end{matrix} \\right) $$ BxB+NxN=b xB=B-1b-B-1NxN$$ x=\\left( \\begin{matrix} x_B \\\nx_N \\end{matrix} \\right)=\\left( \\begin{matrix} B^{-1}b-B^{-1}Nx_N \\\nx_N \\end{matrix} \\right)\\=\\left( \\begin{matrix} B^{-1}b \\\n0 \\end{matrix} \\right)+\\left( \\begin{matrix} -B^{-1}N \\\nE_{n-m} \\end{matrix} \\right)x_N\\tag{1} $$\n式1 最后一行，记第一个是x0，是特解，第二个括号内的记为Z，是导出组的基础解系\nx=x0+ZxNx0为已知的特解，所以原问题可以转化为关于xN的无约束优化问题\nKKT方法 广义消去法\nLagrange 法\nhttps://www.zhihu.com/question/38586401\n6.3 有效集方法（解不等式约束） 七、约束最优化的理论与方法 7.2二次罚函数法 附录 希腊字母表 ","wordCount":"380","inLanguage":"en","datePublished":"2021-12-28T15:52:51+08:00","dateModified":"2021-12-28T15:52:51+08:00","author":{"@type":"Person","name":"villanel"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://villanel.github.io/post/bestbefit/"},"publisher":{"@type":"Organization","name":"villanel","logo":{"@type":"ImageObject","url":"https://villanel.github.io/%3Clink%20/%20abs%20url%3E"}}}</script>
+</head>
+<body id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://villanel.github.io/ accesskey=h title="Home (Alt + H)">Home</a>
+<span class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</span>
+</div>
+<ul id=menu>
+<li>
+<a href=https://villanel.github.io/categories/ title=categories>
+<span>categories</span>
+</a>
+</li>
+<li>
+<a href=https://villanel.github.io/tags/ title=tags>
+<span>tags</span>
+</a>
+</li>
+<li>
+<a href=https://villanel.github.io/search/ title="search (Alt + /)" accesskey=/>
+<span>search</span>
+</a>
+</li>
+</ul>
+</nav>
+</header>
+<main class=main>
+<article class=post-single>
+<header class=post-header>
+<div class=breadcrumbs><a href=https://villanel.github.io/>Home</a>&nbsp;»&nbsp;<a href=https://villanel.github.io/post/>Posts</a></div>
+<h1 class=post-title>
+Bestbefit
+</h1>
+<div class=post-meta><span title="2021-12-28 15:52:51 +0800 CST">December 28, 2021</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;villanel
+</div>
+</header> <div class=toc>
+<details>
+<summary accesskey=c title="(Alt + C)">
+<span class=details>Table of Contents</span>
+</summary>
+<div class=inner><ul>
+<li>
+<a href=#%e4%b8%89%e7%ba%bf%e6%80%a7%e6%90%9c%e7%b4%a2 aria-label=三、线性搜索>三、线性搜索</a><ul>
+<li>
+<a href=#31%e4%bb%80%e4%b9%88%e6%98%af%e7%ba%bf%e6%80%a7%e6%90%9c%e7%b4%a2 aria-label=3.1什么是线性搜索？>3.1什么是线性搜索？</a><ul>
+<li>
+<a href=#311%e7%ba%bf%e6%80%a7%e6%90%9c%e7%b4%a2%e7%9a%84%e6%a6%82%e5%bf%b5 aria-label=3.1.1线性搜索的概念>3.1.1线性搜索的概念</a></li>
+<li>
+<a href=#312%e7%b2%be%e7%a1%ae%e7%ba%bf%e6%80%a7%e6%90%9c%e7%b4%a2 aria-label=3.1.2精确线性搜索>3.1.2精确线性搜索</a></li>
+<li>
+<a href=#313-%e7%ba%bf%e6%80%a7%e6%90%9c%e7%b4%a2%e7%a0%94%e7%a9%b6%e5%a4%a7%e7%ba%b2 aria-label="3.1.3 线性搜索研究大纲">3.1.3 线性搜索研究大纲</a></li>
+<li>
+<a href=#321-0618%e6%b3%95 aria-label="3.2.1 0.618法">3.2.1 0.618法</a></li>
+<li>
+<a href=#322-fibonacci%e6%b3%95 aria-label="3.2.2 Fibonacci法">3.2.2 Fibonacci法</a></li>
+<li>
+<a href=#323-%e4%ba%8c%e5%88%86%e6%b3%95 aria-label="3.2.3 二分法">3.2.3 二分法</a></li></ul>
+</li></ul>
+</li>
+<li>
+<a href=#%e5%9b%9b%e6%97%a0%e7%ba%a6%e6%9d%9f%e6%9c%80%e4%bc%98%e5%8c%96%e6%96%b9%e6%b3%95 aria-label=四、无约束最优化方法>四、无约束最优化方法</a><ul>
+<li>
+<a href=#41%e6%9c%80%e9%80%9f%e4%b8%8b%e9%99%8d%e6%a2%af%e5%ba%a6%e6%b3%95 aria-label=4.1最速下降/梯度法>4.1最速下降/梯度法</a><ul>
+<li>
+<a href=#%e4%b8%8b%e9%99%8d%e6%96%b9%e5%90%91%e8%b4%9f%e6%a2%af%e5%ba%a6%e6%96%b9%e5%90%91 aria-label=下降方向：负梯度方向><strong>下降方向</strong>：负梯度方向</a></li>
+<li>
+<a href=#%e7%a7%bb%e5%8a%a8%e6%ad%a5%e9%95%bf%e7%ba%bf%e6%80%a7%e6%90%9c%e7%b4%a2%e7%a1%ae%e5%ae%9a aria-label=移动步长：线性搜索确定><strong>移动步长</strong>：线性搜索确定</a></li>
+<li>
+<a href=#%e6%80%a7%e8%b4%a8 aria-label=性质>性质</a></li></ul>
+</li>
+<li>
+<a href=#42-%e7%89%9b%e9%a1%bf%e6%b3%95 aria-label="4.2 牛顿法">4.2 牛顿法</a><ul>
+<li>
+<a href=#421-%e7%89%9b%e9%a1%bf%e6%b3%95%e5%9f%ba%e6%93%8d aria-label="4.2.1 牛顿法基操">4.2.1 牛顿法基操</a><ul>
+<li>
+<a href=#%e6%8e%a8%e5%af%bc%e8%bf%87%e7%a8%8b aria-label=推导过程>推导过程</a></li>
+<li>
+<a href=#%e4%b8%8e%e6%9c%80%e9%80%9f%e4%b8%8b%e9%99%8d%e6%b3%95%e5%af%b9%e6%af%94 aria-label=与最速下降法对比>与最速下降法对比</a></li>
+<li>
+<a href=#%e6%80%a7%e8%b4%a8-1 aria-label=性质>性质</a></li></ul>
+</li>
+<li>
+<a href=#422%e5%b8%a6%e6%ad%a5%e9%95%bf%e5%9b%a0%e5%ad%90%e7%9a%84%e7%89%9b%e9%a1%bf%e6%b3%95%e9%98%bb%e5%b0%bc%e7%89%9b%e9%a1%bf%e6%b3%95 aria-label=4.2.2带步长因子的牛顿法/阻尼牛顿法>4.2.2带步长因子的牛顿法/阻尼牛顿法</a></li></ul>
+</li>
+<li>
+<a href=#43-%e5%85%b1%e8%bd%ad%e6%a2%af%e5%ba%a6 aria-label="4.3 共轭梯度">4.3 共轭梯度</a><ul>
+<li>
+<a href=#%e5%85%b1%e8%bd%ad aria-label=共轭>共轭</a></li>
+<li>
+<a href=#%e6%8e%a8%e5%af%bc aria-label=推导>推导</a></li></ul>
+</li>
+<li>
+<a href=#44-%e6%8b%9f%e7%89%9b%e9%a1%bf aria-label="4.4 拟牛顿">4.4 拟牛顿</a><ul>
+<ul>
+<li>
+<a href=#%e6%80%a7%e8%b4%a8-2 aria-label=性质>性质</a></li></ul>
+<li>
+<a href=#hsubksub%e6%9b%b4%e6%96%b0 aria-label=Hk更新>Hk更新</a><ul>
+<li>
+<a href=#dfp%e6%a0%a1%e6%ad%a3 aria-label=DFP校正>DFP校正</a></li>
+<li>
+<a href=#bfgs%e6%a0%a1%e6%ad%a3 aria-label=BFGS校正>BFGS校正</a></li></ul>
+</li></ul>
+</li></ul>
+</li>
+<li>
+<a href=#%e4%ba%94%e5%b0%8f%e4%ba%8c%e4%b9%98 aria-label=五、小二乘>五、小二乘</a></li>
+<li>
+<a href=#%e5%85%ad%e4%ba%8c%e6%ac%a1%e8%a7%84%e5%88%92 aria-label=六、二次规划>六、二次规划</a><ul>
+<li>
+<a href=#62-%e7%ad%89%e5%bc%8f%e7%ba%a6%e6%9d%9f%e4%ba%8c%e6%ac%a1%e8%a7%84%e5%88%92%e9%97%ae%e9%a2%98 aria-label="6.2 等式约束二次规划问题">6.2 等式约束二次规划问题</a><ul>
+<li>
+<a href=#%e7%9b%b4%e6%8e%a5%e6%b6%88%e5%8e%bb%e6%b3%95 aria-label=直接消去法>直接消去法</a></li>
+<li>
+<a href=#kkt%e6%96%b9%e6%b3%95 aria-label=KKT方法>KKT方法</a></li></ul>
+</li>
+<li>
+<a href=#63-%e6%9c%89%e6%95%88%e9%9b%86%e6%96%b9%e6%b3%95%e8%a7%a3%e4%b8%8d%e7%ad%89%e5%bc%8f%e7%ba%a6%e6%9d%9f aria-label="6.3 有效集方法（解不等式约束）">6.3 有效集方法（解不等式约束）</a></li></ul>
+</li>
+<li>
+<a href=#%e4%b8%83%e7%ba%a6%e6%9d%9f%e6%9c%80%e4%bc%98%e5%8c%96%e7%9a%84%e7%90%86%e8%ae%ba%e4%b8%8e%e6%96%b9%e6%b3%95 aria-label=七、约束最优化的理论与方法>七、约束最优化的理论与方法</a><ul>
+<li>
+<a href=#72%e4%ba%8c%e6%ac%a1%e7%bd%9a%e5%87%bd%e6%95%b0%e6%b3%95 aria-label=7.2二次罚函数法>7.2二次罚函数法</a></li></ul>
+</li>
+<li>
+<a href=#%e9%99%84%e5%bd%95 aria-label=附录>附录</a><ul>
+<ul>
+<li>
+<a href=#%e5%b8%8c%e8%85%8a%e5%ad%97%e6%af%8d%e8%a1%a8 aria-label=希腊字母表>希腊字母表</a>
+</li>
+</ul>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+</div>
+<div class=post-content><h2 id=三线性搜索>三、线性搜索<a hidden class=anchor aria-hidden=true href=#三线性搜索>#</a></h2>
+<h3 id=31什么是线性搜索>3.1什么是线性搜索？<a hidden class=anchor aria-hidden=true href=#31什么是线性搜索>#</a></h3>
+<h4 id=311线性搜索的概念>3.1.1线性搜索的概念<a hidden class=anchor aria-hidden=true href=#311线性搜索的概念>#</a></h4>
+<p>xk+1=xk+αkdk
+αk：步长因子
+dk：搜索方向
+则下一步的位置设为φ(α)=f(xk+αkdk)</p>
+<p>从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)&lt;φ(0)，即f(xk+αkdk)&lt;f(xk)
+这就是线性搜索</p>
+<h4 id=312精确线性搜索>3.1.2精确线性搜索<a hidden class=anchor aria-hidden=true href=#312精确线性搜索>#</a></h4>
+<ul>
+<li>
+<p>目标函数沿搜索方向dk达到极小值，即使得
+f(xk+αkdk)=min f(xk+αkdk)</p>
+</li>
+<li>
+<p>或选取αk>0使得<strong>到达最低点（各方向导数为0）移动的步长最短</strong>的搜索方法
+αk=min{α>0|▽f(xk+αkdk)Tdk=0}
+（一维到多维的扩充->在这点到某一方向的极小距离内的全微分，▽就是全微分）</p>
+</li>
+<li>
+<p>对于αk=min{α>0|▽f(xk+αkdk)T dk =0}（到达极小点步长最短）
+∵xk+1=xk+αkdk
+∴原式为 ▽f(xk+1)T . dk
+且：gk = ▽ f(xk) ≠ 0 （xk在f(x)的偏导）
+故：= gk+1T . dk
+线性搜索要求：下一梯度与当前下降方向垂直</p>
+</li>
+</ul>
+<h4 id=313-线性搜索研究大纲>3.1.3 线性搜索研究大纲<a hidden class=anchor aria-hidden=true href=#313-线性搜索研究大纲>#</a></h4>
+<p>按步骤分为两部分：1. 确定包含最优解的初始区间 2. 通过分割和插值缩小区间。直到|b-a|&lt;ε</p>
+<ul>
+<li>
+<p>确定初始区间：进退法/加步探索法
+基本思想：试图确定函数呈现“高-低-高”的三点
+具体步骤：</p>
+<ul>
+<li>给出初始点α0>0,初始步长h0>0</li>
+<li>若φ(α0+h0)&lt;=φ(α0)
+则下一步从α1=α0+h0出发，且h1=2h0，直到上升为止</li>
+<li>若φ(α0+h0)>=φ(α0),则<strong>沿反方向搜索</strong>，直到目标函数上升</li>
+<li>也可以取导数，步长加倍来算</li>
+</ul>
+</li>
+<li>
+<p>缩小区间的方法，根据是否利用导数信息分为两种</p>
+<ul>
+<li>无导数法：二分法、黄金分割法（0.618法）、斐波那契法（Fibonacci）</li>
+<li>有导数法：插值法（一般比无导数法更有效）</li>
+<li>不精确线性搜索方法</li>
+</ul>
+</li>
+</ul>
+<h4 id=321-0618法>3.2.1 0.618法<a hidden class=anchor aria-hidden=true href=#321-0618法>#</a></h4>
+<p>在a-b的区间中选取两个对称点，比较其函数值，左侧</p>
+<p>选取根号五减一除以二的近似值：0.618</p>
+<h4 id=322-fibonacci法>3.2.2 Fibonacci法<a hidden class=anchor aria-hidden=true href=#322-fibonacci法>#</a></h4>
+<h4 id=323-二分法>3.2.3 二分法<a hidden class=anchor aria-hidden=true href=#323-二分法>#</a></h4>
+<h2 id=四无约束最优化方法>四、无约束最优化方法<a hidden class=anchor aria-hidden=true href=#四无约束最优化方法>#</a></h2>
+<p>没有约束条件（初始区间），所以需要确定的是下降方向和下降步长。</p>
+<p><strong>最速下降法——最基本的方法</strong></p>
+<p><strong>牛顿法——最主要的方法</strong></p>
+<p><strong>共轭梯度法——解大型优化问题的首选</strong></p>
+<p><strong>拟牛顿法，尤其是BFGS——是目前最成功的方法</strong></p>
+<h3 id=41最速下降梯度法>4.1最速下降/梯度法<a hidden class=anchor aria-hidden=true href=#41最速下降梯度法>#</a></h3>
+<p><strong>梯度</strong>：就是表示某一函数在该点处的方向导数沿着该方向取得<strong>最大值</strong>，即函数在当前位置的<strong>导数</strong>。其实质是迭代点的一次Taylor展开。（在迭代点处用一阶Taylor逼近目标函数，那这个Taylor的最速下降方向不就是原函数的下降方向吗？）</p>
+<p>∇=df(θ)dθ有正有负</p>
+<h4 id=下降方向负梯度方向><strong>下降方向</strong>：负梯度方向<a hidden class=anchor aria-hidden=true href=#下降方向负梯度方向>#</a></h4>
+<p>推导过程：</p>
+<p>gk = ▽ f(xk) ≠ 0 （xk在f(x)的偏导）
+f(x)在xk处的Taylor展开
+f(x)=f(xk) + g k  T (x-xk) + o(||x-xk||)
+令：x=xk+αdk（α：步长是常数，dk：下降方向——构造线性搜索条件）
+∴f(xk+αdk) = f(xk)+ g k T (αdk) + o(||αdk||)
+即：φ(α)=φ(0) + g k T (αdk)</p>
+<p>可以看出（步长大于0）当g k T dk&lt;0 时 dk为下降方向，即：|g k T |.|dk|cosθ&lt;0，几何意义为运行方向和梯度的夹角大于90°，<strong>α取定后显然夹角约接近于180°下降的越快，即dk= -gk</strong></p>
+<p>将dk= -gk代回，得到：
+xk+1=xk-αgk（下一个位置 =上一个位置 + 步长x下降方向）</p>
+<h4 id=移动步长线性搜索确定><strong>移动步长</strong>：线性搜索确定<a hidden class=anchor aria-hidden=true href=#移动步长线性搜索确定>#</a></h4>
+<p>求正定二次函数的步长：</p>
+<p>f(x)=1/2 x T Q x +b T x + c
+取x=xt ，▽f(xt )=gt=Qxt+b
+dt=-gt=-Qxt-b
+αt使得f(xk+αkdk)=min f(xk+αkdk)
+f(xt+1)=f(xt + αtdt) =f(xt- gtαt )=argmin(1/2 gt T Q gt αt 2- gt T gt αt +f(xt))
+运用-b/2a = αt= **gt T gt /gt T Q gt **
+∴迭代公式为：**xt+1=xt-(gt T gt /gt T Q gt)**gt</p>
+<p>具体计算时
+可以先设置下降方向为负梯度方向，代入f(xt+1)的式子中，得到关于αt的函数，令该函数为0，得到最优步长。
+例题：
+<img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/v2-e39fc7952c26563af3c888667e5af8d8_1440w.jpg alt=img>
+</p>
+<h4 id=性质>性质<a hidden class=anchor aria-hidden=true href=#性质>#</a></h4>
+<ul>
+<li>
+<p>优点：计算工作量小，存储量小，对初始点无要求</p>
+</li>
+<li>
+<p>缺点：局部最速，整体求解缓慢（等值线为扁长椭球时开始较快，后来出现锯齿现象）
+对于αk=min{α>0|▽f(xk+αkdk)T dk =0}（到达极小点步长最短）
+∵xk+1=xk+αkdk
+∴原式左侧为 ▽f(xk+1)T . dk
+且：gk = ▽ f(xk) ≠ 0 （xk在f(x)的偏导）
+故 gk+1T . dk = 0
+线性搜索要求：下一梯度与当前下降方向垂直
+且下降方向是负梯度方向(最速下降法要求的dk = -gk+1T)
+∴ gk+1T . gk =dk+1T . dk= 0 (<strong>相邻梯度方向垂直、相邻下降方向垂直</strong>)
+所以后来会出现锯齿现象。</p>
+</li>
+</ul>
+<h3 id=42-牛顿法>4.2 牛顿法<a hidden class=anchor aria-hidden=true href=#42-牛顿法>#</a></h3>
+<p><a href=https://zhuanlan.zhihu.com/p/293951317>https://zhuanlan.zhihu.com/p/293951317</a></p>
+<h4 id=421-牛顿法基操>4.2.1 牛顿法基操<a hidden class=anchor aria-hidden=true href=#421-牛顿法基操>#</a></h4>
+<p>基本思想：在迭代点处对目标函数进行二次Taylor后，用二阶Taylor极小点去逼近目标极小点（最速下降法用一阶Taylor不行，那我二阶的试试？）</p>
+<h5 id=推导过程>推导过程<a hidden class=anchor aria-hidden=true href=#推导过程>#</a></h5>
+<p>在xk附近展开（要求二次连续可微）
+f(xk+s) = f(xk)+ ▽f(xk) T s + 1/2 sT▽2f(xk)s + o(||αdk||)
+对s求导令其为0得：▽f(xk) + ▽2f(xk)s = 0
+（要求Hesse（▽2f(xk)）正定）
+∴ s = (▽2f(xk))-1 . -▽f(xk)
+xk+1=xk+s=xk+(▽2f(xk))-1 . -▽f(xk) =xk -（f(xk)一阶梯度/f(xk)二阶梯度）</p>
+<h5 id=与最速下降法对比>与最速下降法对比<a hidden class=anchor aria-hidden=true href=#与最速下降法对比>#</a></h5>
+<p>不需要求方向，步长，直接s一步到位，因为二阶中有 sT▽2f(xk)s，对s求导后还有一个s，可以直接表示出s。而一阶的最速下降法，因为对s求导后，是常数了，所以不可以这么做。<img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211204154812271.png alt=image-20211204154812271>
+</p>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/v2-b54f3ba5b4bf76d9f67d4566fbc1dce2_r.jpg alt=preview>
+</p>
+<h5 id=性质-1>性质<a hidden class=anchor aria-hidden=true href=#性质-1>#</a></h5>
+<ul>
+<li>对于正定二次函数f(x)=1/2 x TAx+b T x+c，牛顿法可以一步到位</li>
+<li>一般非二次函数，不能保证迭代得到最优解</li>
+<li>若初始点充分靠近极小点，牛顿法收敛的速度一般是快的，且具有二阶收敛速度</li>
+<li>这个方法要求迭代点处二次连续可微+Hesse可逆 而且需要计算Hesse的逆矩阵，存储和计算都很麻烦。</li>
+</ul>
+<h4 id=422带步长因子的牛顿法阻尼牛顿法>4.2.2带步长因子的牛顿法/阻尼牛顿法<a hidden class=anchor aria-hidden=true href=#422带步长因子的牛顿法阻尼牛顿法>#</a></h4>
+<p>初始点远离最优解时，Hesse 不一定正定，无法保证收敛性，所以在前面加入αk步长因子，通过线性搜索得到步长因子。</p>
+<p>xk+1= xk+ αk(▽2f(xk))-1 . -▽f(xk)
+αk>=0, 使得xk+ αk(▽2f(xk))-1 . -▽f(xk)最小
+同最速下降法一样，令其为0，解得αk</p>
+<p>带步长因子的牛顿法是总体收敛的</p>
+<h3 id=43-共轭梯度>4.3 共轭梯度<a hidden class=anchor aria-hidden=true href=#43-共轭梯度>#</a></h3>
+<p>FR共轭梯度法实际上是利用梯度和上一次的搜索方向来构造本次搜索方向：</p>
+<p>dk=-gk+βk-1dk-1
+即：用上一次的搜索方向修正最速下降法的负梯度方向，不仅避免了锯齿现象，与牛顿法相比也节约了计算量。运用共轭，线性无关的同时，也适应大条件数。</p>
+<p>共轭梯度法克服了最速下降法收敛慢，只需要利用一阶导数信息，避免了牛顿法存储和计算hesse矩阵的空间
+对大型线性或非线性方程组都非常有效</p>
+<h4 id=共轭>共轭<a hidden class=anchor aria-hidden=true href=#共轭>#</a></h4>
+<p>首先，什么是共轭</p>
+<p>设 d1,d2 &mldr; dm 是Rn 中任意一组非零向量，若
+di TG di = 0 ( i ≠ j )
+则称d1,d2 &mldr; dm是 G-共轭的。显然 d1,d2 &mldr; dm 线性无关，若G = I， 则是正交关系。</p>
+<h4 id=推导>推导<a hidden class=anchor aria-hidden=true href=#推导>#</a></h4>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211211143255082.png alt=image-20211211143255082>
+</p>
+<p>matlab 代码实现：</p>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211211163909181.png alt=image-20211211163909181>
+</p>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211211164238467.png alt=image-20211211164238467>
+</p>
+<h3 id=44-拟牛顿>4.4 拟牛顿<a hidden class=anchor aria-hidden=true href=#44-拟牛顿>#</a></h3>
+<p>牛顿法的关键就是利用了Hesse的曲率信息，但是Hesse的计算和存储都很困难，那可否用梯度和目标函数这些信息来构造曲率近似呢？</p>
+<p>实际上就是用Bk代替牛顿法中的Hesse矩阵，Hk替牛顿法中的Hesse<strong>逆</strong>矩阵</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>牛顿法</th>
+<th>拟牛顿法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>迭代公式</td>
+<td>xk+1= xk - αk(▽2f(xk))-1 ▽f(xk))</td>
+<td>xk+1 = xk - αkBk-1 . ▽f(xk)</td>
+</tr>
+<tr>
+<td>dk 搜索方向</td>
+<td>- (▽2f(xk))-1 ▽f(xk))</td>
+<td>- Bk-1 . ▽f(xk)</td>
+</tr>
+</tbody>
+</table>
+<p>所以就是搜索方向用 - Bk-1 . ▽f(xk) 迭代，
+初始时Bk为单位矩阵，搜索方向为最速方向</p>
+<h5 id=性质-2>性质<a hidden class=anchor aria-hidden=true href=#性质-2>#</a></h5>
+<ul>
+<li>仅需一阶导数</li>
+<li>Bk 正定 即可使该方法有下降性质</li>
+<li>搜索方向互相共轭</li>
+</ul>
+<h4 id=hsubksub更新>Hk更新<a hidden class=anchor aria-hidden=true href=#hsubksub更新>#</a></h4>
+<p>xk+1 = xk - αkBk-1 . gk</p>
+<p>sk = xk+1 - xk，yk = gk+1 - gk</p>
+<p>那么如何更新Hesse逆的近似——Hk呢？我们提出了两种修正方法。</p>
+<h5 id=dfp校正>DFP校正<a hidden class=anchor aria-hidden=true href=#dfp校正>#</a></h5>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211204172730861.png alt=image-20211204172730861>
+</p>
+<h5 id=bfgs校正>BFGS校正<a hidden class=anchor aria-hidden=true href=#bfgs校正>#</a></h5>
+<p>两次运用秩一校正得到关于Bk的迭代公式</p>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211204172908437.png alt=image-20211204172908437>
+</p>
+<h2 id=五小二乘>五、小二乘<a hidden class=anchor aria-hidden=true href=#五小二乘>#</a></h2>
+<h2 id=六二次规划>六、二次规划<a hidden class=anchor aria-hidden=true href=#六二次规划>#</a></h2>
+<p>非线性约束优化问题</p>
+<p>研究带有二次目标函数和线性约束的最优化问题</p>
+<p>二次规划(QP)问题下，若Hesse为正定，则为凸规划问题</p>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211204191244725.png alt=image-20211204191244725>
+</p>
+<p>前m个为不等式约束，后l个是等式约束</p>
+<h3 id=62-等式约束二次规划问题>6.2 等式约束二次规划问题<a hidden class=anchor aria-hidden=true href=#62-等式约束二次规划问题>#</a></h3>
+<p>min 1/2 xT Q x + cT x
+s. t. Ax=b
+假设</p>
+<ul>
+<li>Q为半正定，则为凸问题</li>
+<li>A mXn, r(A)=m, A行满秩</li>
+</ul>
+<h4 id=直接消去法>直接消去法<a hidden class=anchor aria-hidden=true href=#直接消去法>#</a></h4>
+<p>联想：</p>
+<p>Ax=b线性方程组求解</p>
+<p>对A分块=（B，N）</p>
+<p>对应x分块
+$$
+x=\left(
+\begin{matrix}
+x_B \<br>
+x_N
+\end{matrix}
+\right)
+$$
+BxB+NxN=b
+xB=B-1b-B-1NxN
+$$
+x=\left(
+\begin{matrix}
+x_B \<br>
+x_N
+\end{matrix}
+\right)=\left(
+\begin{matrix}
+B^{-1}b-B^{-1}Nx_N \<br>
+x_N
+\end{matrix}
+\right)\=\left(
+\begin{matrix}
+B^{-1}b \<br>
+0
+\end{matrix}
+\right)+\left(
+\begin{matrix}
+-B^{-1}N \<br>
+E_{n-m}
+\end{matrix}
+\right)x_N\tag{1}
+$$</p>
+<p>式1 最后一行，记第一个是x0，是特解，第二个括号内的记为Z，是导出组的基础解系</p>
+<p>x=x0+ZxN</p>
+<p>x0为已知的特解，所以原问题可以转化为关于xN的无约束优化问题</p>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211204195439675.png alt=image-20211204195439675>
+</p>
+<h4 id=kkt方法>KKT方法<a hidden class=anchor aria-hidden=true href=#kkt方法>#</a></h4>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/image-20211204200728061.png alt=image-20211204200728061>
+</p>
+<p>广义消去法</p>
+<p>Lagrange 法</p>
+<p><a href=https://www.zhihu.com/question/38586401>https://www.zhihu.com/question/38586401</a></p>
+<h3 id=63-有效集方法解不等式约束>6.3 有效集方法（解不等式约束）<a hidden class=anchor aria-hidden=true href=#63-有效集方法解不等式约束>#</a></h3>
+<h2 id=七约束最优化的理论与方法>七、约束最优化的理论与方法<a hidden class=anchor aria-hidden=true href=#七约束最优化的理论与方法>#</a></h2>
+<h3 id=72二次罚函数法>7.2二次罚函数法<a hidden class=anchor aria-hidden=true href=#72二次罚函数法>#</a></h3>
+<h2 id=附录>附录<a hidden class=anchor aria-hidden=true href=#附录>#</a></h2>
+<h4 id=希腊字母表>希腊字母表<a hidden class=anchor aria-hidden=true href=#希腊字母表>#</a></h4>
+<p><img loading=lazy src=/%e6%9c%80%e4%bc%98%e5%8c%96%e7%ac%94%e8%ae%b0.assets/format,f_auto.jpeg alt=img>
+</p>
+</div>
+<footer class=post-footer>
+<nav class=paginav>
+<a class=next href=https://villanel.github.io/post/test/>
+<span class=title>Next Page »</span>
+<br>
+<span>Test</span>
+</a>
+</nav>
+</footer>
+</article>
+</main>
+<footer class=footer>
+<span>&copy; 2021 <a href=https://villanel.github.io/>villanel</a></span>
+<span>
+Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://git.io/hugopapermod rel=noopener target=_blank>PaperMod</a>
+</span>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script>
+<script>document.querySelectorAll('pre > code').forEach(b=>{const c=b.parentNode.parentNode,a=document.createElement('button');a.classList.add('copy-code'),a.innerText='copy';function d(){a.innerText='copied!',setTimeout(()=>{a.innerText='copy'},2e3)}a.addEventListener('click',e=>{if('clipboard'in navigator){navigator.clipboard.writeText(b.textContent),d();return}const a=document.createRange();a.selectNodeContents(b);const c=window.getSelection();c.removeAllRanges(),c.addRange(a);try{document.execCommand('copy'),d()}catch(a){}c.removeRange(a)}),c.classList.contains("highlight")?c.appendChild(a):c.parentNode.firstChild==c||(b.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?b.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(a):b.parentNode.appendChild(a))})</script>
+</body>
+</html>

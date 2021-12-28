@@ -9,7 +9,26 @@
       <link>https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 17 Dec 2021 22:02:55 +0800</lastBuildDate><atom:link href="https://villanel.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Dec 2021 15:52:51 +0800</lastBuildDate><atom:link href="https://villanel.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Bestbefit</title>
+      <link>https://villanel.github.io/post/bestbefit/</link>
+      <pubDate>Tue, 28 Dec 2021 15:52:51 +0800</pubDate>
+      
+      <guid>https://villanel.github.io/post/bestbefit/</guid>
+      <description>三、线性搜索 3.1什么是线性搜索？ 3.1.1线性搜索的概念 xk+1=xk+αkdkαk：步长因子 dk：搜索方向 则下一步的位置设为φ(α)=f(xk+αkdk)
+从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)&amp;lt;φ(0)，即f(xk+αkdk)&amp;lt;f(xk) 这就是线性搜索
+3.1.2精确线性搜索   目标函数沿搜索方向dk达到极小值，即使得 f(xk+αkdk)=min f(xk+αkdk)
+  或选取αk&amp;gt;0使得到达最低点（各方向导数为0）移动的步长最短的搜索方法 αk=min{α&amp;gt;0|▽f(xk+αkdk)Tdk=0} （一维到多维的扩充-&amp;gt;在这点到某一方向的极小距离内的全微分，▽就是全微分）
+  对于αk=min{α&amp;gt;0|▽f(xk+αkdk)Tdk=0}（到达极小点步长最短） ∵xk+1=xk+αkdk∴原式为 ▽f(xk+1)T. dk且：gk= ▽ f(xk) ≠ 0 （xk在f(x)的偏导） 故：= gk+1T. dk线性搜索要求：下一梯度与当前下降方向垂直
+  3.1.3 线性搜索研究大纲 按步骤分为两部分：1. 确定包含最优解的初始区间 2. 通过分割和插值缩小区间。直到|b-a|&amp;lt;ε
+  确定初始区间：进退法/加步探索法 基本思想：试图确定函数呈现“高-低-高”的三点 具体步骤：
+ 给出初始点α0&amp;gt;0,初始步长h0&amp;gt;0 若φ(α0+h0)&amp;lt;=φ(α0) 则下一步从α1=α0+h0出发，且h1=2h0，直到上升为止 若φ(α0+h0)&amp;gt;=φ(α0),则沿反方向搜索，直到目标函数上升 也可以取导数，步长加倍来算    缩小区间的方法，根据是否利用导数信息分为两种
+ 无导数法：二分法、黄金分割法（0.618法）、斐波那契法（Fibonacci） 有导数法：插值法（一般比无导数法更有效） 不精确线性搜索方法    3.2.1 0.618法 在a-b的区间中选取两个对称点，比较其函数值，左侧
+选取根号五减一除以二的近似值：0.618
+3.2.2 Fibonacci法 3.2.3 二分法 四、无约束最优化方法 没有约束条件（初始区间），所以需要确定的是下降方向和下降步长。</description>
+    </item>
+    
     <item>
       <title>Test</title>
       <link>https://villanel.github.io/post/test/</link>
