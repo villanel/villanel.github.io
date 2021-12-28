@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>villanel</title>
-    <link>https://villanel.github.io/</link>
+    <link>https://dp.ckvb.run/</link>
     <description>Recent content on villanel</description>
     <image>
-      <url>https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>https://villanel.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://dp.ckvb.run/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://dp.ckvb.run/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 28 Dec 2021 15:52:51 +0800</lastBuildDate><atom:link href="https://villanel.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Dec 2021 15:52:51 +0800</lastBuildDate><atom:link href="https://dp.ckvb.run/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Bestbefit</title>
-      <link>https://villanel.github.io/post/bestbefit/</link>
+      <link>https://dp.ckvb.run/post/bestbefit/</link>
       <pubDate>Tue, 28 Dec 2021 15:52:51 +0800</pubDate>
       
-      <guid>https://villanel.github.io/post/bestbefit/</guid>
+      <guid>https://dp.ckvb.run/post/bestbefit/</guid>
       <description>三、线性搜索 3.1什么是线性搜索？ 3.1.1线性搜索的概念 xk+1=xk+αkdkαk：步长因子 dk：搜索方向 则下一步的位置设为φ(α)=f(xk+αkdk)
 从xk出发沿dk方向搜索，确定步长因子αk使得φ(α)&amp;lt;φ(0)，即f(xk+αkdk)&amp;lt;f(xk) 这就是线性搜索
 3.1.2精确线性搜索   目标函数沿搜索方向dk达到极小值，即使得 f(xk+αkdk)=min f(xk+αkdk)
@@ -31,29 +31,29 @@
     
     <item>
       <title>Test</title>
-      <link>https://villanel.github.io/post/test/</link>
+      <link>https://dp.ckvb.run/post/test/</link>
       <pubDate>Fri, 17 Dec 2021 22:02:55 +0800</pubDate>
       
-      <guid>https://villanel.github.io/post/test/</guid>
+      <guid>https://dp.ckvb.run/post/test/</guid>
       <description>tesdsdad a sdasd asd</description>
     </item>
     
     <item>
       <title>K3s on the cloud</title>
-      <link>https://villanel.github.io/post/k3s/</link>
+      <link>https://dp.ckvb.run/post/k3s/</link>
       <pubDate>Fri, 17 Dec 2021 20:05:03 +0800</pubDate>
       
-      <guid>https://villanel.github.io/post/k3s/</guid>
+      <guid>https://dp.ckvb.run/post/k3s/</guid>
       <description>K3s with clilium and loki Install k3s and disable default CNI curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=&amp;#39;--flannel-backend=none --disable-network-policy&amp;#39; sh - then you can add agent nodes also,you can find node-token at /var/lib/rancher/k3s/server/node-token,and install k3s agent nodes with follow commend.
 curl -sfL https://get.k3s.io | K3S_URL=&amp;#39;https://${MASTER_IP}:6443&amp;#39; K3S_TOKEN=${NODE_TOKEN} sh - Install the Cilium with the Cilium CLI curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz{,.sha256sum} sha256sum --check cilium-linux-amd64.tar.gz.sha256sum sudo tar xzvfC cilium-linux-amd64.tar.gz /usr/local/bin rm cilium-linux-amd64.tar.gz{,.sha256sum} Install Cilium by running:</description>
     </item>
     
     <item>
       <title>flink</title>
-      <link>https://villanel.github.io/post/fuck/</link>
+      <link>https://dp.ckvb.run/post/fuck/</link>
       <pubDate>Sun, 12 Dec 2021 14:52:02 +0800</pubDate>
       
-      <guid>https://villanel.github.io/post/fuck/</guid>
+      <guid>https://dp.ckvb.run/post/fuck/</guid>
       <description>Flink in Native Kubernetes deploy flink in the Session Mode flink will deploy in the namespace default as default and use default as serviceaccount, if we want deploy in another namespace, we can set kubernetes.namespace. and we should modify the serviceacount.We either modify the permissions of default or create a new serviceAccount.
 create serviceaccount flink-service-account $ kubectl create serviceaccount flink-service-account $ kubectl create clusterrolebinding flink-role-binding-flink --clusterrole=edit --serviceaccount=default:flink-service-account delpoy the flink .</description>
     </item>
